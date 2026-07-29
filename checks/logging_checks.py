@@ -1,7 +1,5 @@
 """Cloud logging and monitoring security checks."""
 
-from __future__ import annotations
-
 from typing import Any
 
 from cloud_audit.models import Finding, Severity
