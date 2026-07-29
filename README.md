@@ -74,6 +74,10 @@ The current release supports AWS-style resource configurations and is designed f
 - Disabled security alerts
 - Insufficient log retention
 
+## Live Demo
+
+[Launch the Cloud Security Audit Toolkit](https://cloud-security-audit-toolkit.streamlit.app/)
+
 ## Project Structure
 
 ```text
