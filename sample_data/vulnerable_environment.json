@@ -1,1 +1,142 @@
-
+{
+  "provider": "AWS",
+  "account_id": "123456789012",
+  "environment": "production",
+  "resources": [
+    {
+      "type": "iam_user",
+      "id": "legacy-admin-user",
+      "region": "global",
+      "configuration": {
+        "mfa_enabled": false,
+        "administrator_access": true,
+        "access_keys": [
+          {
+            "id": "AKIAEXAMPLE001",
+            "age_days": 180,
+            "active": true
+          },
+          {
+            "id": "AKIAEXAMPLE002",
+            "age_days": 40,
+            "active": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "iam_user",
+      "id": "application-user",
+      "region": "global",
+      "configuration": {
+        "mfa_enabled": false,
+        "administrator_access": false,
+        "access_keys": [
+          {
+            "id": "AKIAEXAMPLE003",
+            "age_days": 120,
+            "active": true
+          },
+          {
+            "id": "AKIAEXAMPLE004",
+            "age_days": 60,
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "s3_bucket",
+      "id": "customer-records-bucket",
+      "region": "eu-west-1",
+      "configuration": {
+        "public_access": true,
+        "block_public_access": false,
+        "encryption_enabled": false,
+        "versioning_enabled": false,
+        "access_logging_enabled": false
+      }
+    },
+    {
+      "type": "s3_bucket",
+      "id": "application-backups",
+      "region": "eu-west-1",
+      "configuration": {
+        "public_access": false,
+        "block_public_access": true,
+        "encryption_enabled": true,
+        "versioning_enabled": false,
+        "access_logging_enabled": false
+      }
+    },
+    {
+      "type": "security_group",
+      "id": "production-web-sg",
+      "region": "eu-west-1",
+      "configuration": {
+        "attached": true,
+        "inbound_rules": [
+          {
+            "protocol": "tcp",
+            "from_port": 22,
+            "to_port": 22,
+            "source": "0.0.0.0/0"
+          },
+          {
+            "protocol": "tcp",
+            "from_port": 3306,
+            "to_port": 3306,
+            "source": "0.0.0.0/0"
+          }
+        ],
+        "outbound_rules": [
+          {
+            "protocol": "all",
+            "destination": "0.0.0.0/0"
+          }
+        ]
+      }
+    },
+    {
+      "type": "security_group",
+      "id": "unused-security-group",
+      "region": "eu-west-1",
+      "configuration": {
+        "attached": false,
+        "inbound_rules": [],
+        "outbound_rules": []
+      }
+    },
+    {
+      "type": "rds_instance",
+      "id": "customer-database",
+      "region": "eu-west-1",
+      "configuration": {
+        "encryption_enabled": false,
+        "encryption_key_type": "provider_managed"
+      }
+    },
+    {
+      "type": "volume",
+      "id": "application-data-volume",
+      "region": "eu-west-1",
+      "configuration": {
+        "encryption_enabled": true,
+        "encryption_key_type": "provider_managed",
+        "snapshot_encryption_enabled": false
+      }
+    },
+    {
+      "type": "cloudtrail",
+      "id": "organisation-audit-trail",
+      "region": "global",
+      "configuration": {
+        "enabled": true,
+        "log_file_validation_enabled": false,
+        "encryption_enabled": false,
+        "security_alerts_enabled": false,
+        "retention_days": 30
+      }
+    }
+  ]
+}
