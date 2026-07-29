@@ -1,5 +1,7 @@
 """Risk scoring utilities for cloud security audit findings."""
 
+from __future__ import annotations
+
 from collections.abc import Iterable
 
 from cloud_audit.models import Finding, Severity
