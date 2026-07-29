@@ -1,7 +1,5 @@
 """Cloud encryption and data-protection security checks."""
 
-from __future__ import annotations
-
 from typing import Any
 
 from cloud_audit.models import Finding, Severity
