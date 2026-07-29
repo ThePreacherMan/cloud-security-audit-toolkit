@@ -1,1 +1,88 @@
-
+{
+  "provider": "AWS",
+  "account_id": "987654321098",
+  "environment": "production",
+  "resources": [
+    {
+      "type": "iam_user",
+      "id": "security-analyst",
+      "region": "global",
+      "configuration": {
+        "mfa_enabled": true,
+        "administrator_access": false,
+        "access_keys": [
+          {
+            "id": "AKIASECURE001",
+            "age_days": 30,
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "s3_bucket",
+      "id": "secure-customer-records",
+      "region": "eu-west-1",
+      "configuration": {
+        "public_access": false,
+        "block_public_access": true,
+        "encryption_enabled": true,
+        "versioning_enabled": true,
+        "access_logging_enabled": true
+      }
+    },
+    {
+      "type": "security_group",
+      "id": "restricted-web-security-group",
+      "region": "eu-west-1",
+      "configuration": {
+        "attached": true,
+        "inbound_rules": [
+          {
+            "protocol": "tcp",
+            "from_port": 443,
+            "to_port": 443,
+            "source": "203.0.113.0/24"
+          }
+        ],
+        "outbound_rules": [
+          {
+            "protocol": "tcp",
+            "destination": "10.0.0.0/16"
+          }
+        ]
+      }
+    },
+    {
+      "type": "rds_instance",
+      "id": "encrypted-production-database",
+      "region": "eu-west-1",
+      "configuration": {
+        "encryption_enabled": true,
+        "encryption_key_type": "customer_managed"
+      }
+    },
+    {
+      "type": "volume",
+      "id": "encrypted-application-volume",
+      "region": "eu-west-1",
+      "configuration": {
+        "encryption_enabled": true,
+        "encryption_key_type": "customer_managed",
+        "snapshot_encryption_enabled": true
+      }
+    },
+    {
+      "type": "cloudtrail",
+      "id": "secure-organisation-audit-trail",
+      "region": "global",
+      "configuration": {
+        "enabled": true,
+        "log_file_validation_enabled": true,
+        "encryption_enabled": true,
+        "security_alerts_enabled": true,
+        "retention_days": 365
+      }
+    }
+  ]
+}
